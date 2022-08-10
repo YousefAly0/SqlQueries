@@ -1,0 +1,33 @@
+
+SELECT [i].[type_id] AS [it1Id], [i].[type] AS [it1NameAr], [i].[type_EnName] AS [it1NameEn], [i2].[itimg_image_url] AS [it1PhotoUrl], [i].[Type_Parent] AS [it1Parent], 1 AS [it1Level], [i0].[type_id] AS [it2Id], [i0].[type] AS [it2NameAr], [i0].[type_EnName] AS [it2NameEn], [i3].[itimg_image_url] AS [it2PhotoUrl], [i0].[Type_Parent] AS [it2Parent], 2 AS [it2Level], [i1].[type_id] AS [it3Id], [i1].[type] AS [it3NameAr], [i1].[type_EnName] AS [it3NameEn], [i4].[itimg_image_url] AS [it3PhotoUrl], [i1].[Type_Parent] AS [it3Parent], 3 AS [it3Level]
+	,[t]. pl_name, [t].pl_id
+      FROM [Item_Type] AS [i]
+      INNER JOIN [ph].[ph_item_type_assigned_user] AS [p] ON [i].[type_id] = [p].[itas_type_id]
+      LEFT JOIN [Item_Type] AS [i0] ON [i].[type_id] = [i0].[Type_Parent]
+      LEFT JOIN [Item_Type] AS [i1] ON [i0].[type_id] = [i1].[Type_Parent]
+      CROSS APPLY (
+          SELECT [p0].[pl_id], [p0].[pl_EnName], [p0].[pl_name], [p0].[pl_parent], [p0].[pl_prim_type], [p0].[pl_sec_type], [p0].[pl_uom_luv_id], [p0].[pl_uom_luv_title_id], [p0].[pl_uom_value], [p0].[status]
+          FROM [productLines] AS [p0]
+          WHERE (([p0].[pl_prim_type] = [i].[type_id]) OR (([p0].[pl_prim_type] = [i0].[type_id]) OR ([p0].[pl_prim_type] IS NULL AND [i0].[type_id] IS NULL))) OR (([p0].[pl_prim_type] = [i1].[type_id]) OR ([p0].[pl_prim_type] IS NULL AND [i1].[type_id] IS NULL))
+      ) AS [t]
+      LEFT JOIN [ItemType_Image] AS [i2] ON [i].[type_id] = [i2].[itimg_type_id]
+      LEFT JOIN [ItemType_Image] AS [i3] ON [i0].[type_id] = [i3].[itimg_type_id]
+      LEFT JOIN [ItemType_Image] AS [i4] ON [i1].[type_id] = [i4].[itimg_type_id]
+	  --------------------------------------------------------------
+	
+	SELECT distinct [t].pl_id, t.pl_name, i.type
+      FROM [Item_Type] AS [i]
+      INNER JOIN [ph].[ph_item_type_assigned_user] AS [p] ON [i].[type_id] = [p].[itas_type_id]
+      LEFT JOIN [Item_Type] AS [i0] ON [i].[type_id] = [i0].[Type_Parent]
+      LEFT JOIN [Item_Type] AS [i1] ON [i0].[type_id] = [i1].[Type_Parent]
+      CROSS APPLY (
+          SELECT [p0].[pl_id], [p0].[pl_EnName], [p0].[pl_name], [p0].[pl_parent], [p0].[pl_prim_type], [p0].[pl_sec_type], [p0].[pl_uom_luv_id], [p0].[pl_uom_luv_title_id], [p0].[pl_uom_value], [p0].[status]
+          FROM [productLines] AS [p0]
+          WHERE (([p0].[pl_prim_type] = [i].[type_id]) OR (([p0].[pl_prim_type] = [i0].[type_id]) OR ([p0].[pl_prim_type] IS NULL AND [i0].[type_id] IS NULL))) OR (([p0].[pl_prim_type] = [i1].[type_id]) OR ([p0].[pl_prim_type] IS NULL AND [i1].[type_id] IS NULL))
+      ) AS [t]
+      LEFT JOIN [ItemType_Image] AS [i2] ON [i].[type_id] = [i2].[itimg_type_id]
+      LEFT JOIN [ItemType_Image] AS [i3] ON [i0].[type_id] = [i3].[itimg_type_id]
+      LEFT JOIN [ItemType_Image] AS [i4] ON [i1].[type_id] = [i4].[itimg_type_id]
+	  where i.type = N'‘Ì»”Ì'
+	 
+
