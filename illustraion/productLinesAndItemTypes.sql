@@ -12,6 +12,7 @@ inner join productLines pl3 on pl2.pl_id = pl3.pl_parent
 
 
 
+
 --item_types relations
 /*
 	any category must have 3 levels
@@ -23,7 +24,16 @@ select  it1.type as it1_name, it1.type_id as it1_id, it2.type as it2_name, it2.t
 from Item_Type it1
 inner join Item_Type it2 on it1.type_id = it2.Type_Parent
 inner join Item_Type it3 on it2.type_id = it3.Type_Parent
+where it1.type_id = 10200131 OR it2.type_id = 10200131 OR it3.type_id = 10200131
 
---where it1.type_id = 10200131 OR it2.type_id = 10200131 OR it3.type_id = 10200131
+
+
 --where it1.Type_Parent is null
+
+
+
+
+
+
+
 
