@@ -26,6 +26,15 @@ SELECT TOP (1000) [itas_assigned_user_id]
   WHERE itas_assigned_user_id = 23122
   --DELETE FROM ph.[ph_item_type_assigned_user] WHERE [itas_assigned_user_id] = 23122
 
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP (1000) [ItemTypeAssignedUserItemTypeId]
+      ,[ItemTypeAssignedUserAssignedUserId]
+      ,[ItemTypeAssignedUserMarketId]
+      ,[BrandId]
+  FROM [Do2romStage23112021].[ph].[AssignedItemTypeBrands]
+  WHERE ItemTypeAssignedUserAssignedUserId = 23122
+  --DELETE FROM ph.[AssignedItemTypeBrands] WHERE [ItemTypeAssignedUserAssignedUserId] = 23122
+
   /****** Script for SelectTopNRows command from SSMS  ******/
 SELECT TOP (1000) [bas_assigned_user_id]
       ,[bas_admin_user_id]
